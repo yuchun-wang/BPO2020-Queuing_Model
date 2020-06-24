@@ -109,7 +109,7 @@ h1 {
   font-size: 20px;
 }
 
-.send {
+.send, .stop {
   font-family: Times;
   display: inline-block;
   padding: 15px 25px;
@@ -129,6 +129,15 @@ h1 {
 }
 
 .send:active {
+  background-color: #6F88C4;
+  transform: translateY(4px);
+}
+
+.stop:hover {
+  background-color: #6F88C4
+}
+
+.stop:active {
   background-color: #6F88C4;
   transform: translateY(4px);
 }
@@ -222,4 +231,17 @@ table tr:nth-child(odd) {
 
 .statistics, .simulate_area {
   text-align: center;
+}
+
+.tooltip {
+  position: absolute;
+  font-size: 15px;
+  font-family: times;
+  font-weight: bold;
+  text-align: left;
+  /* color: #091D2C; */
+  /* background: white; */
+  padding: 10px;
+  /* border-radius: 8px; */
+  pointer-events: none;
 }

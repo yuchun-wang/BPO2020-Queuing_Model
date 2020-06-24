@@ -1,3 +1,24 @@
+// d3 animation
+
+const margin = {
+  top: 60,
+  right: 40,
+  bottom: 50,
+  left: 100
+},
+  width = 900,
+  height = 300
+
+const svg = d3.select(".animation").append("svg").attr("width", width)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g");
+svg.append("rect")
+  .attr("width", 500)
+  .attr("height", 250)
+  .attr("x", (width-500)/2)
+  .attr("y", (height + margin.top + margin.bottom-250)/2)
+  .style("fill", "white");
+
 var q_count = 0;
 var s_count = 0;
 var o_count = 0;
@@ -145,7 +166,6 @@ function run() {
         servers.end_time[who_service_now] += servicetime;
       } else {
         //leave
-        console.log("in")
         start_time_temp = start_time;
         start_time = 0
         servicetime = 0
@@ -231,8 +251,21 @@ function run() {
   }
   str += "</table>";
   document.getElementById("output").innerHTML = str;
-
+  
   //動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫
+
+  // 加入服務生
+  // console.log(servers.name.length)
+  svg.selectAll("img")
+    .data(servers.name)
+    .enter()
+    .append("image")
+    .attr("xlink:href", "waiter.png")
+    .attr('x', (d, i) => width/2 + i * 50 -50)
+    .attr('y', (d) => 20)
+    .attr("width", 50)
+    .attr("height", 50)
+
   simulate_id++;
   var tmp_simulate_id = simulate_id;
   var count = 0;
@@ -240,31 +273,88 @@ function run() {
   var tID = setInterval(myFunc01, speed);
   var time_str = "";
 
+  // clearInterval: stop simulate
+  var stop = document.querySelector('.stop');
+  stop.addEventListener('click', ()=> {clearInterval(tID)}, false);
+  // console.log(customer_data)
+  var sim_cus = 0
+  // var div = d3.select(".animation").append("div").attr("class", "tooltip").style("opacity", 0);
+  var customers_div = svg
+    .selectAll("g")
+    .data(customer_data.id)
+    .enter()
+    .append("g")
+    .attr("id", (d) => "cus_"+d)
+
   function myFunc01() {
     document.getElementById("simulate").innerHTML = time_str;
     var now_time = open_time2 + count;
+    // console.log(now_time)
     var now_time_hour = parseInt(now_time / 3600);
     var now_time_min = parseInt(now_time / 60 % 60);
     var now_time_sec = parseInt(now_time % 60);
     time_str = 'Current time - ' + now_time_hour + ":" + now_time_min + ':' + now_time_sec;
+
     count++;
     var temp_count = open_time2 + count;
+    if (parseInt(customer_data.arrival_time[sim_cus]) < temp_count) {
+      sim_cus++
+      console.log(sim_cus, "in")
+      arrive = customer_data.arrival_time[sim_cus]
+      start_service = customer_data.start_time[sim_cus]
+      end_service = customer_data.end_time[sim_cus]
+
+      var queue_duration = start_service - arrive
+      var service_duration = end_service - start_service
+
+      console.log(queue_duration, service_duration)
+      let cust = d3.select("#cus_" + (parseInt(sim_cus)+1))
+        .append("svg:image")
+        .attr("xlink:href", "human.png")
+        .attr("width", 50).attr("height", 50)
+        .attr("x", 0)
+        .attr("y", 50)
+        // .attr("x", height / 2)
+        // .attr("y", 150)
+        .attr("test", function() {
+          // console.log("#cus_" + (parseInt(sim_cus) + 1), this)
+        })
+      var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+      var randPosition = plusOrMinus * Math.random()
+      console.log(randPosition)
+      cust.transition()
+        .duration(1000)
+        .attr("x", 150)
+        .attr("y", 150 + randPosition*100)
+        .on("end", serviceSim)
+      console.log("spp", queue_duration)
+      function serviceSim() {
+        cust.transition()
+          .delay(queue_duration * speed)
+          .duration(service_duration * speed)
+          .attr("x", (width - 500) / 2 + 500)
+          .attr("y", 150)
+      }
+      // cust
+
+    }
 
     for (var i = 0; i < run; i++) {
+
       if (parseInt(customer_data.arrival_time[i]) < temp_count && customer_data.inq[i] == 0) {
         customer_data.inq[i] = 1;
-        run_addq();
+        
+        run_addq(i+1);
       }
       if (parseInt(customer_data.start_time[i]) < temp_count && customer_data.ins[i] == 0) {
         customer_data.ins[i] = 1;
-        run_delq();
+        run_delq(i+1);
       }
       if (parseInt(customer_data.end_time[i]) < temp_count && customer_data.out[i] == 0) {
         customer_data.out[i] = 1;
-        run_dels();
+        run_dels(i+1);
       }
     }
-
     if (count >= (customer_data.end_time[run - 1] - open_time2) || tmp_simulate_id != simulate_id) {
       clearInterval(tID);
     }
@@ -330,29 +420,49 @@ function clear_count() {
 }
 
 //新增到queue
-function run_addq() {
+function run_addq(id) {
   q_str = '';
   q_count++;
+  console.log("q_count+", q_count)
+
   for (var i = 0; i < q_count; i++) {
     // q_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
+    // console.log("addq:", i)
+    // d3.select("#cus_" + id)
+    //   .append("svg:image")
+    //   .attr("xlink:href", "human.png")
+    //   .attr("width", 50).attr("height", 50)
+    //   .attr("x", height/2)
+    //   .attr("y", 100)
   }
   document.getElementById("inqueue").innerHTML = q_str;
 }
 
 
 //自queue中刪除，並新增到service
-function run_delq() {
+function run_delq(id) {
+  // console.log("deid", id)
   q_str = '';
   if (q_count > 0) {
     q_count--;
   }
+  console.log("q_count-", q_count)
+
+  // d3.select("#cus_" + i + 1)
+  //   .append("svg:image")
+  //   .attr("xlink:href", "woman.png")
+  //   .attr("width", 50)
+  //   .attr("height", 50)
+  
   for (var i = 0; i < q_count; i++) {
+    // console.log("delq:", i)
     // q_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
   }
 
   s_str = '';
   s_count++;
   for (var i = 0; i < s_count; i++) {
+    // console.log("adds:", i)
     // s_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
   }
   document.getElementById("inqueue").innerHTML = q_str;
@@ -361,18 +471,20 @@ function run_delq() {
 }
 
 //自service中刪除，並新增到out
-function run_dels() {
+function run_dels(id) {
   s_str = '';
   if (s_count > 0) {
     s_count--;
   }
   for (var i = 0; i < s_count; i++) {
+    // console.log("dels:", i)
     // s_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
   }
 
   o_str = '';
   o_count++;
   for (var i = 0; i < o_count; i++) {
+    // console.log("addo:", i)
     // o_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
   }
 
