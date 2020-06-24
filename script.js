@@ -298,8 +298,6 @@ function run() {
     count++;
     var temp_count = open_time2 + count;
     if (parseInt(customer_data.arrival_time[sim_cus]) < temp_count) {
-      sim_cus++
-      console.log(sim_cus, "in")
       arrive = customer_data.arrival_time[sim_cus]
       start_service = customer_data.start_time[sim_cus]
       end_service = customer_data.end_time[sim_cus]
@@ -307,7 +305,6 @@ function run() {
       var queue_duration = start_service - arrive
       var service_duration = end_service - start_service
 
-      console.log(queue_duration, service_duration)
       let cust = d3.select("#cus_" + (parseInt(sim_cus)+1))
         .append("svg:image")
         .attr("xlink:href", "human.png")
@@ -321,21 +318,25 @@ function run() {
         })
       var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
       var randPosition = plusOrMinus * Math.random()
-      console.log(randPosition)
       cust.transition()
         .duration(1000)
         .attr("x", 150)
         .attr("y", 150 + randPosition*100)
         .on("end", serviceSim)
-      console.log("spp", queue_duration)
+      // console.log("speed", speed)
       function serviceSim() {
         cust.transition()
-          .delay(queue_duration * speed)
+          .delay(queue_duration * speed + 1000)
           .duration(service_duration * speed)
           .attr("x", (width - 500) / 2 + 500)
           .attr("y", 150)
+          .attr("test", function() {
+            // console.log("temp_cont:", temp_count, "start_service", start_service)
+            // console.log("queue_duration", queue_duration)
+          })
       }
       // cust
+      sim_cus++
 
     }
 
@@ -423,7 +424,6 @@ function clear_count() {
 function run_addq(id) {
   q_str = '';
   q_count++;
-  console.log("q_count+", q_count)
 
   for (var i = 0; i < q_count; i++) {
     // q_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
@@ -446,7 +446,6 @@ function run_delq(id) {
   if (q_count > 0) {
     q_count--;
   }
-  console.log("q_count-", q_count)
 
   // d3.select("#cus_" + i + 1)
   //   .append("svg:image")
