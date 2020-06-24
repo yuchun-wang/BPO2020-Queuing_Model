@@ -1,5 +1,4 @@
 // d3 animation
-
 const margin = {
     top: 60,
     right: 40,
@@ -12,6 +11,7 @@ const margin = {
 const svg = d3.select(".animation").append("svg").attr("width", width)
   .attr("height", height + margin.top + margin.bottom)
   .append("g");
+
 svg.append("rect")
   .attr("width", 500)
   .attr("height", 250)
@@ -22,9 +22,6 @@ svg.append("rect")
 var q_count = 0;
 var s_count = 0;
 var o_count = 0;
-var q_str = '';
-var s_str = '';
-var o_str = '';
 var simulate_id = 0;
 var send = document.querySelector('.send');
 send.addEventListener('click', run, false);
@@ -54,8 +51,6 @@ function run() {
   typeII_rate = parseFloat(typeII_rate);
   var speed = document.querySelector('.SS').value;
   speed = 1000 - parseFloat(speed);
-  // var online_rate = document.querySelector('.online_rate').value;
-  // online_rate = parseFloat(online_rate);
   var const_servicetime = 1 / service_rate * 60;
   var const_servicetime2 = 1 / service_rate2 * 60;
   var const_offline_servicetime = 1 / offline_service_rate * 60;
@@ -81,7 +76,7 @@ function run() {
 
   //第一位客人的開始時間等於他到達的時間
   var start_time = arrival_time;
-  var str = "<table border='1'> <tr><td>Customer_ID</td><td>Wait</td><td>Serving</td><td>Arrival_time</td><td>Start_time</td><td>End_time</td><td>Service_time(s)</td><td>Other</td></tr>";
+  var str = "<table border='1'> <tr><td>Customer_ID</td><td>Wait</td><td>Serving</td><td>Arrival Time</td><td>Start Time</td><td>End Time</td><td>Service Time（sec）</td><td>Other</td></tr>";
   var end_time = 0;
   var min_end_time = 1;
   var who_service_now = 0;
@@ -102,11 +97,6 @@ function run() {
   for (var i = 1; i <= run; i++) {
     var customer_type;
     var customer_online;
-    // if (Math.random() > (online_rate / 100)) {
-    //   customer_online = 0;
-    // } else {
-    //   customer_online = 1;
-    // }
     if (Math.random() > (typeI_rate / 100)) {
       customer_type = 2;
     } else {
@@ -266,7 +256,6 @@ function run() {
   document.getElementById("output").innerHTML = str;
 
   //動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫
-
   // 加入服務生
   // console.log(servers.name.length)
   svg.selectAll("img")
@@ -294,7 +283,6 @@ function run() {
   }, false);
   // console.log(customer_data)
   var sim_cus = 0
-  // var div = d3.select(".animation").append("div").attr("class", "tooltip").style("opacity", 0);
   var customers_div = svg
     .selectAll("g")
     .data(customer_data.id)
@@ -313,7 +301,7 @@ function run() {
     count++;
     var temp_count = open_time2 + count;
     if (parseInt(customer_data.arrival_time[sim_cus]) < temp_count) {
-      console.log(sim_cus, "in")
+      // console.log(sim_cus, "in")
       arrive = customer_data.arrival_time[sim_cus]
       start_service = customer_data.start_time[sim_cus]
       end_service = customer_data.end_time[sim_cus]
@@ -328,8 +316,6 @@ function run() {
         .attr("width", 50).attr("height", 50)
         .attr("x", 0)
         .attr("y", 50)
-        // .attr("x", height / 2)
-        // .attr("y", 150)
         .attr("test", function() {
           // console.log("#cus_" + (parseInt(sim_cus) + 1), this)
         })
@@ -340,33 +326,35 @@ function run() {
         .duration(1000)
         .attr("x", 150)
         .attr("y", 150 + randPosition * 100)
-        .on("end", serviceSim)
-      // console.log("spp", arrive + queue_duration)
-      // console.log("spp2", arrive + queue_duration + service_duration)
+        .on("end", serviceSim(sim_cus))
 
-      function serviceSim() {
-        cust.transition()
-          .delay(queue_duration * speed + 1000)
-          .duration(service_duration * speed)
-          .attr("x", (width - 500) / 2 + 500)
-          .attr("y", 150)
+      function serviceSim(sim_cus) {
+        if(sim_cus == 0){
+          cust.transition()
+            .delay(queue_duration * speed)
+            .duration(service_duration * speed)
+            .attr("x", (width - 500) / 2 + 500)
+            .attr("y", 150)
+        }else{
+          cust.transition()
+            .delay(queue_duration * speed + 1000)
+            .duration(service_duration * speed)
+            .attr("x", (width - 500) / 2 + 500)
+            .attr("y", 150)
+        }
       }
       sim_cus++
-      // cust
     }
 
     for (var i = 0; i < run; i++) {
       if (parseInt(customer_data.arrival_time[i]) < temp_count && customer_data.inq[i] == 0) {
         customer_data.inq[i] = 1;
-        run_addq(i + 1);
       }
       if (parseInt(customer_data.start_time[i]) < temp_count && customer_data.ins[i] == 0) {
         customer_data.ins[i] = 1;
-        run_delq(i + 1);
       }
       if (parseInt(customer_data.end_time[i]) < temp_count && customer_data.out[i] == 0) {
         customer_data.out[i] = 1;
-        run_dels(i + 1);
       }
     }
     if (count >= (customer_data.end_time[run - 1] - open_time2) || tmp_simulate_id != simulate_id) {
@@ -384,8 +372,8 @@ function run() {
       buy_II++;
     }
   });
-  document.getElementById("buy_I").innerHTML = 'There are ' + buy_I + '  customers bought drink I';
-  document.getElementById("buy_II").innerHTML = 'There are ' + buy_II + ' customers bought drink II';
+  document.getElementById("buy_I").innerHTML = 'Bought drink I ：' + buy_I + '  customers';
+  document.getElementById("buy_II").innerHTML = 'Bought drink II：' + buy_II + ' customers';
   var first_arrival_time = 0
   var last_arrival_time = 0;
   var total_wait_time = 0;
@@ -406,8 +394,8 @@ function run() {
   var avg_service_s = total_service_time / run;
   var avg_wait_s = total_wait_time / run;
   document.getElementById("service_per_m").innerHTML = service_per_m.toFixed(2) + ' customer come per minute';
-  document.getElementById("avg_service_s").innerHTML = 'Average service time ' + avg_service_s.toFixed(2) + ' seconds'
-  document.getElementById("avg_wait_s").innerHTML = 'Average waiting time ' + avg_wait_s.toFixed(2) + ' seconds'
+  document.getElementById("avg_service_s").innerHTML = 'Average service time：' + avg_service_s.toFixed(2) + ' seconds'
+  document.getElementById("avg_wait_s").innerHTML = 'Average waiting time：' + avg_wait_s.toFixed(2) + ' seconds'
 }
 
 //指數分布
@@ -424,79 +412,4 @@ function clear_count() {
   q_count = 0;
   s_count = 0;
   o_count = 0;
-  q_str = '';
-  s_str = '';
-  o_str = '';
-  // document.getElementById("inqueue").innerHTML = q_str;
-  // document.getElementById("inservice").innerHTML = s_str;
-  // document.getElementById("out").innerHTML = o_str;
-}
-
-//新增到queue
-function run_addq(id) {
-  q_str = '';
-  q_count++;
-  // console.log("q_count+", q_count)
-  for (var i = 0; i < q_count; i++) {
-    // q_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
-    // console.log("addq:", i)
-    // d3.select("#cus_" + id)
-    //   .append("svg:image")
-    //   .attr("xlink:href", "human.png")
-    //   .attr("width", 50).attr("height", 50)
-    //   .attr("x", height/2)
-    //   .attr("y", 100)
-  }
-  // document.getElementById("inqueue").innerHTML = q_str;
-}
-
-//自queue中刪除，並新增到service
-function run_delq(id) {
-  // console.log("deid", id)
-  q_str = '';
-  if (q_count > 0) {
-    q_count--;
-  }
-  // console.log("q_count-", q_count)
-
-  // d3.select("#cus_" + i + 1)
-  //   .append("svg:image")
-  //   .attr("xlink:href", "woman.png")
-  //   .attr("width", 50)
-  //   .attr("height", 50)
-
-  for (var i = 0; i < q_count; i++) {
-    // console.log("delq:", i)
-    // q_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
-  }
-
-  s_str = '';
-  s_count++;
-  for (var i = 0; i < s_count; i++) {
-    // console.log("adds:", i)
-    // s_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
-  }
-  // document.getElementById("inqueue").innerHTML = q_str;
-  // document.getElementById("inservice").innerHTML = s_str;
-}
-
-//自service中刪除，並新增到out
-function run_dels(id) {
-  s_str = '';
-  if (s_count > 0) {
-    s_count--;
-  }
-  for (var i = 0; i < s_count; i++) {
-    // console.log("dels:", i)
-    // s_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
-  }
-
-  o_str = '';
-  o_count++;
-  for (var i = 0; i < o_count; i++) {
-    // console.log("addo:", i)
-    // o_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
-  }
-  // document.getElementById("inservice").innerHTML = s_str;
-  // document.getElementById("out").innerHTML = o_str;
 }
