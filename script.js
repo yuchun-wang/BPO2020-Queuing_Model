@@ -29,7 +29,6 @@ function run() {
   typeI_rate = parseFloat(typeI_rate);
   var typeII_rate = document.querySelector('.SR2R').value;
   typeII_rate = parseFloat(typeII_rate);
-
   var speed = document.querySelector('.SS').value;
   speed = 1000 - parseFloat(speed);
   // var online_rate = document.querySelector('.online_rate').value;
@@ -351,11 +350,13 @@ function run_dels() {
   for (var i = 0; i < s_count; i++) {
     // s_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
   }
+
   o_str = '';
   o_count++;
   for (var i = 0; i < o_count; i++) {
     // o_str += '<div class="div" style="width:50px;height:50px;float:left" ><img src="genie.jpg" alt=""width="50px" height="50px"></div>'
   }
+
   document.getElementById("inservice").innerHTML = s_str;
   document.getElementById("out").innerHTML = o_str;
 }

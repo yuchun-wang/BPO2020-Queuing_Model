@@ -15,27 +15,28 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-  margin: 0;
+  margin: 20;
   padding: 0;
   border: 0;
   font-size: 100%;
   font: inherit;
+  color: #D3DBF6;
   vertical-align: baseline;
 }
 
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
+/* article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
-}
+} */
 
-body {
-  line-height: 1;
-}
+/* body {
+  line-height: 1.5;
+} */
 
-ol, ul {
+/* ol, ul {
   list-style: none;
-}
+} */
 
 blockquote, q {
   quotes: none;
@@ -53,7 +54,7 @@ table {
 }
 
 body {
-  /* font-family: Comic Sans MS; */
+  font-family: Times;
   line-height: 20px;
 }
 
@@ -76,24 +77,40 @@ h1 {
   line-height: 60px;
 }
 
+.null{
+  opacity : 0;
+}
+
 .input{
-  width: 75px;
+  width: 100px;
+  background: #D3DBF6;
+  border-radius: 10px;
+  border-width: 0px;
+  border-color: #D3DBF6;
+}
+
+.time{
+  padding: 5px 12px;
+  margin: 10px 5px;
+  width: 150px;
+  background: #D3DBF6;
+  border-radius: 10px;
+  border-width: 0px;
+  border-color: #D3DBF6;
 }
 
 .table {
-  border-width: 3px;
-  border-style: dashed;
-  border-color: #4CAF50;
   padding: 30px;
-  width: 350px;
+  width: 400px;
   height: auto;
-  text-align: center;
+  text-align: left;
   margin: 0px auto;
   float: left;
+  font-size: 20px;
 }
 
 .send {
-  font-family: Comic Sans MS;
+  font-family: Times;
   display: inline-block;
   padding: 15px 25px;
   font-size: 24px;
@@ -101,20 +118,18 @@ h1 {
   text-align: center;
   text-decoration: none;
   outline: none;
-  color: #fff;
-  background-color: #4CAF50;
+  color: #121528;
+  background-color: #D3DBF6;
   border: none;
-  border-radius: 15px;
-  box-shadow: 0 9px #999;
+  border-radius: 10px;
 }
 
 .send:hover {
-  background-color: #3e8e41
+  background-color: #6F88C4
 }
 
 .send:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
+  background-color: #6F88C4;
   transform: translateY(4px);
 }
 
@@ -125,11 +140,7 @@ input[type=number] {
 }
 
 input[type=number]:focus {
-  border: 3px solid #4CAF50;
-}
-
-table {
-  width: 100%;
+  border: 3px solid #121528;
 }
 
 table {
@@ -207,10 +218,6 @@ table tr:nth-child(odd) {
   text-align: center;
   margin: 0 auto;
   width: 100px;
-}
-
-.null {
-  clear: both;
 }
 
 .statistics, .simulate_area {

@@ -7,12 +7,16 @@
   <link rel=stylesheet href="style.css">
 </head>
 
-<body>
-  <h1>Welcome to Xiaohui Simulator!!!<br />Please fill the following blanks</h1>
+<body style="background-color:#121528">
+  <div class="title" align="center">
+    <h1>Queuing Model</h1>
+  </div>
+
   <div class="body">
     <!-- 動畫區 -->
     <div class="simulate_area">
       <div id="simulate">Current time - 00:00:00</div>
+      <div class="null">after</div>
       <div class="_inqueue">
         <div class="aaa">In Queue</div>
         <div id="inqueue"></div>
@@ -25,7 +29,7 @@
         <div class="aaa">Finish</div>
         <div id="out"></div>
       </div>
-      <div class="null"></div>
+      <div class="null">after</div>
     </div>
 
     <!-- 結果 -->
@@ -35,7 +39,8 @@
       <div class="buy_II" id="buy_II"></div>
       <div id="service_per_m"></div>
       <div id="avg_service_s"></div>
-      <div id="avg_wait_s"></div></br>
+      <div id="avg_wait_s"></div>
+      <div class="null">after</div>
     </div>
 
     <!-- 要輸入的東東 -->
@@ -51,17 +56,16 @@
       Service rate of Making TypeII(m)<input type="number" name="" class="SR2 input" value="0.667">
       <div id="_sr2r">Purchase probability - TypeII <input type="number" class="SR2R input" id="SR2R" max="100" min="0" value="60">%</div>
       <div class="null"> </div>
-      Servers <input type="number" name="" class="S" value="2"></br>
-      Simulation times<input type="number" class="R" value="50"></br>
+      Servers <input type="number" name="" class="S input" value="2"></br>
+      Simulation times<input type="number" class="R input" value="50"></br>
       Simulate speed<input type="range" class="SS" value="950" min="0" max="990"></br></br>
       <input type="button" class="send" value="simulate">
     </div>
 
+    <!-- 結果列表 -->
+    <div class="null">after</div>
+    <div class=".table3_1 " id="output"></div>
   </div>
-    <div class="null"></div>
-
-  <!-- 結果列表 -->
-  <div class=".table3_1 " id="output"></div>
 
   <script src="script.js"></script>
   <script src="cal_rate.js"></script>
