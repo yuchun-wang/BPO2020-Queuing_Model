@@ -17,6 +17,8 @@ function run() {
   var open_time2 = open_time;
   var arrival_rate = document.querySelector('.AR').value;
   arrival_rate = parseFloat(arrival_rate);
+  var leaving_rate = document.querySelector('.leave_rate').value;
+  leaving_rate = parseFloat(leaving_rate);
   var service_rate = document.querySelector('.SR').value;
   service_rate = parseFloat(service_rate);
   var service_rate2 = document.querySelector('.SR2').value;
@@ -77,6 +79,8 @@ function run() {
     type: [],
     online: []
   };
+
+  // run: 模擬幾次
   for (var i = 1; i <= run; i++) {
     var customer_type;
     var customer_online;
@@ -118,33 +122,48 @@ function run() {
 
     //記下起始時間
     var tmp_time = open_time;
+    var start_time_temp = 0;
     arrival_time += (-1 / arrival_rate) * (Math.log(Math.random() / Math.log(2.718)) * 60);
     for (j = servers_num; j > 0; j--) { //找出服務生中最早的完成時間
       if (servers.end_time[j - 1] < min_end_time) {
         who_service_now = j - 1;
+        // console.log(servers.end_time[j - 1])
         min_end_time = servers.end_time[j - 1];
-
       }
     }
 
     if (servers.end_time[who_service_now] <= arrival_time) { //如果進場時間大於上次服務時間(服務生有空)
       start_time = arrival_time;
+      start_time_temp = start_time
       servers.end_time[who_service_now] += servicetime;
 
     } else { //沒有服務生有空
-      start_time = servers.end_time[who_service_now];
-      servers.end_time[who_service_now] += servicetime;
+      //顧客是否不願意等
+      if (Math.random() > (leaving_rate / 100)) {
+        //not leave
+        start_time = servers.end_time[who_service_now];
+        start_time_temp = start_time
+        servers.end_time[who_service_now] += servicetime;
+      } else {
+        //leave
+        console.log("in")
+        start_time_temp = start_time;
+        start_time = 0
+        servicetime = 0
+        customer_type = 0
+      };
+     
     }
 
 
 
     //將舊時間變數套用上本次修改的時間
     servers.end_time[who_service_now] = start_time + servicetime
-    min_end_time = start_time + servicetime;
+    min_end_time = start_time_temp + servicetime;
     open_time += servicetime;
 
     //轉換時間單位
-    var dur = open_time - tmp_time;
+    var dur = open_time - tmp_time; 
     var arrivalhour = parseInt(arrival_time / 3600);
     var arrivalmin = parseInt(arrival_time / 60 % 60);
     if (arrivalmin < 10) {
