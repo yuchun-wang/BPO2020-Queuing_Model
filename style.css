@@ -24,20 +24,6 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-/* HTML5 display-role reset for older browsers */
-/* article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-} */
-
-/* body {
-  line-height: 1.5;
-} */
-
-/* ol, ul {
-  list-style: none;
-} */
-
 blockquote, q {
   quotes: none;
 }
@@ -48,28 +34,11 @@ q:before, q:after {
   content: none;
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 body {
   font-family: Times;
   line-height: 20px;
+  width: auto;
 }
-
-/* .xiaohui img{
-    height: 551px;
-    width: 275px;
-    float:left;
-    margin: 0 auto;
-}
-.genie img{
-    height: 551px;
-    width: 275px;
-    float:left;
-    margin: 0 auto;
-} */
 
 h1 {
   text-align: center;
@@ -77,11 +46,17 @@ h1 {
   line-height: 60px;
 }
 
-.null{
-  opacity : 0;
+h2 {
+  text-align: center;
+  font-size: 30px;
+  margin: 0px auto;
 }
 
-.input{
+.null {
+  opacity: 0;
+}
+
+.input {
   width: 100px;
   background: #D3DBF6;
   border-radius: 10px;
@@ -89,7 +64,7 @@ h1 {
   border-color: #D3DBF6;
 }
 
-.time{
+.time {
   padding: 5px 12px;
   margin: 10px 5px;
   width: 150px;
@@ -100,17 +75,37 @@ h1 {
 }
 
 .table {
-  padding: 30px;
-  width: 400px;
-  height: auto;
+  overflow: hidden;
+}
+
+.table1 {
+  width: 38%;
+  height: 450px;
   text-align: left;
-  margin: 0px auto;
+  margin: 0px 40px;
   float: left;
   font-size: 20px;
+  line-height: 60px;
+}
+
+.table2 {
+  width: 45%;
+  height: 450px;
+  text-align: left;
+  margin: 0px 40px;
+  float: left;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.button {
+  clear: both;
 }
 
 .send, .stop {
+  width: 200px;
   font-family: Times;
+  font-weight: bold;
   display: inline-block;
   padding: 15px 25px;
   font-size: 24px;
@@ -153,9 +148,11 @@ input[type=number]:focus {
 }
 
 table {
+  border-collapse: collapse;
+  border-spacing: 0;
   width: 100%;
   margin: 15px 0;
-  margin-top: 100px;
+  margin-top: 30px;
 }
 
 th {
@@ -167,12 +164,11 @@ table, table th, .table td {
   font-size: 0.95em;
   text-align: center;
   padding: 4px;
-  border: 1px solid #7387fe;
   border-collapse: collapse
 }
 
 table tr:nth-child(odd) {
-  background-color: #4CAF50;
+  background-color: #6F88C4;
 }
 
 .table tr:nth-child(even) {
@@ -189,59 +185,17 @@ table tr:nth-child(odd) {
 .simulate_area {
   margin: 0 auto;
   width: 1000px;
-}
-
-._inqueue {
-  float: left;
-}
-
-#inqueue {
-  background-color: #f6d186;
-  width: 300px;
-  height: 300px;
-}
-
-._inservice {
-  float: left;
-  margin-left: 50px;
-}
-
-#inservice {
-  background-color: #fcf7bb;
-  width: 300px;
-  height: 300px;
-}
-
-._out {
-  float: left;
-  margin-left: 50px;
-}
-
-#out {
-  background-color: #cbe2b0;
-  width: 300px;
-  height: 300px;
-}
-
-.aaa {
-  text-align: center;
-  margin: 0 auto;
-  width: 100px;
-}
-
-.statistics, .simulate_area {
   text-align: center;
 }
 
-.tooltip {
-  position: absolute;
-  font-size: 15px;
-  font-family: times;
-  font-weight: bold;
-  text-align: left;
-  /* color: #091D2C; */
-  /* background: white; */
-  padding: 10px;
-  /* border-radius: 8px; */
-  pointer-events: none;
+.statistics {
+  width: 98%;
+  text-align: center;
+  font-size: 17px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 5%;
+  padding-right: 5%;
+  border: 5px solid #7387fe;
+  border-radius: 20px;
 }
