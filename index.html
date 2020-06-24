@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Queuing Model</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
   <link rel=stylesheet href="style.css">
 </head>
 
@@ -17,6 +18,11 @@
     <div class="simulate_area">
       <div id="simulate">Current time - 00:00:00</div>
       <div class="null">after</div>
+
+      <div class="animation">
+
+      </div>
+
       <div class="_inqueue">
         <div class="aaa">In Queue</div>
         <div id="inqueue"></div>
@@ -46,7 +52,7 @@
     <!-- 要輸入的東東 -->
     <div class="table">
       Business hour <input type="time" name="" id="" class="time" value="10:30"></br>
-      Arrival rate (m) <input type="number" name="" class="AR input" value="0.6"></br>
+      Arrival rate (m) <input type="number" name="" class="AR input" value="3.6"></br>
       <!-- Online order probability<input type="number" class="online_rate input" id="online_rate" max="100" min="0" value="40">%</br> -->
       Leave Queue probability<input type="number" class="leave_rate input" id="leave_rate" max="100" min="0" value="20">%</br>
       Service rate of Order(m)<input type="number" name="" class="order input" value="1.5"></br>
@@ -60,6 +66,7 @@
       Simulation times<input type="number" class="R input" value="50"></br>
       Simulate speed<input type="range" class="SS" value="950" min="0" max="990"></br></br>
       <input type="button" class="send" value="simulate">
+      <input type="button" class="stop" value="stop">
     </div>
 
     <!-- 結果列表 -->
