@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600);
 @import url(https://fonts.googleapis.com/css?family=Cuprum:400,700);
 @import url(https://fonts.googleapis.com/css?family=Abel);
+@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -35,7 +36,7 @@ q:before, q:after {
 }
 
 body {
-  font-family: Times;
+  font-family: 'Noto Sans TC';
   line-height: 20px;
   width: auto;
 }
@@ -56,15 +57,15 @@ h2 {
   opacity: 0;
 }
 
-.input {
+/* .input {
   width: 100px;
   background: #D3DBF6;
   border-radius: 10px;
   border-width: 0px;
   border-color: #D3DBF6;
-}
+} */
 
-.time {
+/* .time {
   padding: 5px 12px;
   margin: 10px 5px;
   width: 150px;
@@ -72,13 +73,13 @@ h2 {
   border-radius: 10px;
   border-width: 0px;
   border-color: #D3DBF6;
-}
+} */
 
 .table {
   overflow: hidden;
 }
 
-.table1 {
+/* .table1 {
   width: 38%;
   height: 450px;
   text-align: left;
@@ -96,7 +97,7 @@ h2 {
   float: left;
   font-size: 20px;
   line-height: 20px;
-}
+} */
 
 .button {
   clear: both;
@@ -104,7 +105,7 @@ h2 {
 
 .send, .stop {
   width: 200px;
-  font-family: Times;
+  font-family: 'Noto Sans TC';
   font-weight: bold;
   display: inline-block;
   padding: 15px 25px;
@@ -147,20 +148,20 @@ input[type=number]:focus {
   border: 3px solid #121528;
 }
 
-table {
+/* table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
   margin: 15px 0;
   margin-top: 30px;
-}
+} */
 
-th {
+/* th {
   background-color: #96A5FF;
   color: #FFFFFF
-}
+} */
 
-table, table th, .table td {
+/* table, table th, .table td {
   font-size: 0.95em;
   text-align: center;
   padding: 4px;
@@ -173,13 +174,15 @@ table tr:nth-child(odd) {
 
 .table tr:nth-child(even) {
   background-color: #fdfdfd;
-}
+} */
 
 .body {
   margin: 0 auto;
-  width: 966px;
+  width: auto;
   height: auto;
   margin-bottom: 400px;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .simulate_area {
@@ -199,3 +202,17 @@ table tr:nth-child(odd) {
   border: 5px solid #7387fe;
   border-radius: 20px;
 }
+
+ tbody {
+      display:block;
+      max-height:500px;
+      overflow-y:auto;
+  }
+  thead, tbody tr {
+      display:table;
+      width:100%;
+      table-layout:fixed;
+  }
+  /* thead {
+      width: calc( 100% - 1em )
+  }  */

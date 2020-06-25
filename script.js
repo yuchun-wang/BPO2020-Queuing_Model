@@ -76,7 +76,7 @@ function run() {
 
   //第一位客人的開始時間等於他到達的時間
   var start_time = arrival_time;
-  var str = "<table border='1' class='table table-striped table-dark' style='margin - bottom: 0'><thead> <tr><td>Customer ID</td><td>Order Drink Type</td><td>Arrival Time</td><td>Start Time</td><td>End Time</td><td>Service Time</td><td>Other</td></tr></thead><tbody>";
+  var str = "<table border='1' class='table table-striped table-dark' style='margin - bottom: 0'><thead> <tr><th scope='col'>Cust#</th><th>Order Drink Type</th><th>Arrival Time</th><th>Start Time</th><th>End Time</th><th>Service Time</th><th>Served by</th></tr></thead><tbody>";
   var end_time = 0;
   var min_end_time = 1;
   var who_service_now = 0;
@@ -250,7 +250,7 @@ function run() {
       _online = " Offline order";
     }
     queue = customer_data.id[i - 1] - max_id;
-    str += "<tr><td>" + i + "</td><td>"+ "Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + "</td><td>Served by " + servers.name[who_service_now] + "</td></tr>";
+    str += "<tr><td>" + i + "</td><td>"+ "Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + "sec</td><td>" + servers.name[who_service_now] + "</td></tr>";
   }
   str += "</table>";
   document.getElementById("output").innerHTML = str;
