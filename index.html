@@ -27,53 +27,51 @@
       <div class="col">
         <div class="row">
           <div class="col">
-            Business Hour<input type="time" class="form-control time time" name="" id="" placeholder="Business Hour" value="10:30">
+            Business Hour<input type="time" class="form-control time" name="" id="" placeholder="Business Hour" value="10:30">
           </div>
           <div class="col">
-            <!-- <input type="text" class="form-control" placeholder="First name"> -->
-            Arrival Rate (min) <input type="number" name="" class="form-control AR input" value="3.6">
+            Arrival Rate (min) <input type="number" name="" class="form-control AR" value="3.6">
           </div>
 
         </div>
         <div class="row">
           <div class="col">
-            Leave Queue Probability (%)<input type="number" class="form-control leave_rate input" id="leave_rate" max="100" min="0" value="20">
+            Leave Queue Probability (%)<input type="number" class="form-control leave_rate" id="leave_rate" max="100" min="0" value="20">
           </div>
           <div class="col">
-            Service Rate of Order（min）<input type="number" name="" class="form-control order input" value="1.5">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            Service Rate of Order（min）<input type="number" name="" class="form-control order input" value="1.5"></br>
-          </div>
-          <div class="col">
-            Servers <input type="number" name="" class="form-control S input" value="2"></br>
+            Service Rate of Order（min）<input type="number" name="" class="form-control order" value="1.5">
           </div>
         </div>
         <div class="row">
           <div class="col">
-            Simulation Times<input type="number" class="form-control R input" value="50"></br>
+            Service Rate of Order（min）<input type="number" name="" class="form-control order" value="1.5">
           </div>
           <div class="col">
-            Simulate Speed<input type="range" class="form-control SS" value="950" min="500" max="990"></br></br>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            Service Rate of Making TypeI（min）<input type="number" name="" class="form-control SR input" value="1.5">
-          </div>
-          <div class="col">
-            <div id="_srr">Purchase Probability(%) - TypeI<input type="number" class="form-control SRR input" id="SRR" max="100" min="0" value="40"></div>
+            Servers <input type="number" name="" class="form-control S" value="2">
           </div>
         </div>
         <div class="row">
           <div class="col">
-            Service Rate of Making TypeII（min）<input type="number" name="" class="form-control SR2 input" value="0.667">
+            Simulation Times<input type="number" class="form-control R" value="50">
           </div>
           <div class="col">
-            <div id="_sr2r">Purchase Probability(%) - TypeII <input type="number" class="SR2R input" id="SR2R" max="100" min="0" value="60"></div>
-            <!-- Simulate Speed<input type="range" class="form-control SS" value="950" min="500" max="990"></br></br> -->
+            Simulate Speed<input type="range" class="form-control SS" value="950" min="500" max="990">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            Service Rate of Making TypeI（min）<input type="number" name="" class="form-control SR" value="1.5">
+          </div>
+          <div class="col">
+            <div id="_srr">Purchase Probability（%）- TypeI<input type="number" class="form-control SRR" id="SRR" max="100" min="0" value="40"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            Service Rate of Making TypeII（min）<input type="number" name="" class="form-control SR2" value="0.667"></br></br>
+          </div>
+          <div class="col">
+            <div id="_sr2r">Purchase Probability（%）- TypeII <input type="number" class="form-control SR2R" id="SR2R" max="100" min="0" value="60"></br></br></div>
           </div>
         </div>
         <div class="button" align="center">
@@ -85,10 +83,9 @@
         <div class=".table3_1 " id="output"></div>
       </div>
     </div>
-
     <!-- 結果 -->
-    <div class="statistics">
-      <div class="stat" style="font-weight:bold; color:#7387fe; font-size:20px">Statistics Result of Simulation - </div>
+    <div class="statistics" id="stats">
+      <div class="stat" id="stat" style="font-weight:bold; color:#7387fe; font-size:20px"></div>
       <div class="null">after</div>
       <div id="service_per_m"></div>
       <div class="buy_I" id="buy_I"></div>
