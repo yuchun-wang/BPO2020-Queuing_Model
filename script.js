@@ -23,9 +23,9 @@ svg.append("image")
   .attr("xlink:href", "3081162.svg")
   .attr("width", 120)
   .attr("height", 120)
-  .attr("x", width-270)
-  .attr("y", (height + margin.top + margin.bottom - 250) / 2 -70)
-  // .attr("transform", "rotate(45)")
+  .attr("x", width - 270)
+  .attr("y", (height + margin.top + margin.bottom - 250) / 2 - 70)
+// .attr("transform", "rotate(45)")
 var q_count = 0;
 var s_count = 0;
 var o_count = 0;
@@ -240,7 +240,7 @@ function run() {
     if (customer_type) {
       str += "<tr><td>" + i + "</td><td> Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + " sec</td><td>" + servers.name[who_service_now] + "</td></tr>";
     } else {
-      str += "<tr><td>" + i + "</td><td>" + "Leave" + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + "#######" + "</td><td>" + "#######"+ "</td><td>" + dur + " sec</td><td>" + "NaN"+ "</td></tr>";
+      str += "<tr><td>" + i + "</td><td>" + "Leave" + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + "#######" + "</td><td>" + "#######" + "</td><td>" + dur + " sec</td><td>" + "NaN" + "</td></tr>";
     }
   }
   str += "</table>";
@@ -379,15 +379,19 @@ function run() {
   //統計
   var buy_I = 0;
   var buy_II = 0;
+  var leave = 0;
   customer_data.type.forEach(element => {
     if (element == 1) {
       buy_I++;
-    } else {
+    } else if (element == 2) {
       buy_II++;
+    } else {
+      leave++;
     }
   });
   document.getElementById("buy_I").innerHTML = 'Bought Drink I ：' + buy_I + '  customers';
   document.getElementById("buy_II").innerHTML = 'Bought Drink II：' + buy_II + ' customers';
+  document.getElementById("leave").innerHTML = 'Left：' + leave + ' customers';
   var first_arrival_time = 0
   var last_arrival_time = 0;
   var total_wait_time = 0;
@@ -430,3 +434,13 @@ function clear_count() {
   o_count = 0;
   svg.selectAll(".simElement").remove();
 }
+
+//Purchase Probability恆等於100
+d3.select(".SRR")
+  .on("change", function(params) {
+    document.getElementById("SR2R").value = 100 - this.value;
+  })
+d3.select(".SR2R")
+  .on("change", function(params) {
+    document.getElementById("SRR").value = 100 - this.value;
+  })
