@@ -86,13 +86,13 @@ h2 {
   transform: translateY(4px);
 }
 
-input[type=number] {
+input[type=number], input[type=time],  input[type=range] {
   padding: 5px 12px;
   margin: 10px 5px;
   box-sizing: border-box;
 }
 
-input[type=number]:focus {
+input[type=number]:focus, input[type=time]:focus,  input[type=range]:focus  {
   border: 3px solid #121528;
 }
 
@@ -112,6 +112,7 @@ input[type=number]:focus {
 }
 
 .statistics {
+  opacity: 0;
   width: 98%;
   text-align: center;
   font-size: 17px;

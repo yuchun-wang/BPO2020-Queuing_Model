@@ -396,6 +396,8 @@ function run() {
   document.getElementById("service_per_m").innerHTML = service_per_m.toFixed(2) + '  customer come per minute';
   document.getElementById("avg_service_s").innerHTML = 'Average Service Time：' + avg_service_s.toFixed(2) + ' seconds'
   document.getElementById("avg_wait_s").innerHTML = 'Average Waiting Time：' + avg_wait_s.toFixed(2) + ' seconds'
+  document.getElementById("stat").innerHTML = 'Statistics Result of Simulation - ';
+  document.getElementById("stats").style.opacity = "1";
 }
 
 //指數分布
