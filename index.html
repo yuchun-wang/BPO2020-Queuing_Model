@@ -5,8 +5,7 @@
   <meta charset="utf-8">
   <title>Queuing Model</title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel=stylesheet href="style.css">
 </head>
 
@@ -34,12 +33,11 @@
             <!-- <input type="text" class="form-control" placeholder="First name"> -->
             Arrival Rate (min) <input type="number" name="" class="form-control AR input" value="3.6">
           </div>
-          
+
         </div>
         <div class="row">
           <div class="col">
-            Leave Queue Probability (%)<input type="number" class="form-control leave_rate input" id="leave_rate" max="100" min="0"
-              value="20">
+            Leave Queue Probability (%)<input type="number" class="form-control leave_rate input" id="leave_rate" max="100" min="0" value="20">
           </div>
           <div class="col">
             Service Rate of Order（min）<input type="number" name="" class="form-control order input" value="1.5">
@@ -48,9 +46,9 @@
         <div class="row">
           <div class="col">
             Service Rate of Order（min）<input type="number" name="" class="form-control order input" value="1.5"></br>
-        </div>
+          </div>
           <div class="col">
-          Servers <input type="number" name="" class="form-control S input" value="2"></br>
+            Servers <input type="number" name="" class="form-control S input" value="2"></br>
           </div>
         </div>
         <div class="row">
@@ -66,8 +64,7 @@
             Service Rate of Making TypeI（min）<input type="number" name="" class="form-control SR input" value="1.5">
           </div>
           <div class="col">
-            <div id="_srr">Purchase Probability(%) - TypeI<input type="number" class="form-control SRR input" id="SRR" max="100" min="0"
-                value="40"></div>
+            <div id="_srr">Purchase Probability(%) - TypeI<input type="number" class="form-control SRR input" id="SRR" max="100" min="0" value="40"></div>
           </div>
         </div>
         <div class="row">
@@ -75,8 +72,7 @@
             Service Rate of Making TypeII（min）<input type="number" name="" class="form-control SR2 input" value="0.667">
           </div>
           <div class="col">
-            <div id="_sr2r">Purchase Probability(%) - TypeII <input type="number" class="SR2R input" id="SR2R" max="100" min="0"
-                value="60"></div>
+            <div id="_sr2r">Purchase Probability(%) - TypeII <input type="number" class="SR2R input" id="SR2R" max="100" min="0" value="60"></div>
             <!-- Simulate Speed<input type="range" class="form-control SS" value="950" min="500" max="990"></br></br> -->
           </div>
         </div>
@@ -89,59 +85,18 @@
         <div class=".table3_1 " id="output"></div>
       </div>
     </div>
-    <div class="table" align="center">
-      <!-- <div class="table1">
-        Business Hour <input type="time" name="" id="" class="time" value="10:30"></br>
-        Arrival Rate (min) <input type="number" name="" class="AR input" value="3.6"></br>
-        Leave Queue Probability<input type="number" class="leave_rate input" id="leave_rate" max="100" min="0" value="20">%</br>
-        Service Rate of Order（min）<input type="number" name="" class="order input" value="1.5"></br>
-        Servers <input type="number" name="" class="S input" value="2"></br>
-        Simulation Times<input type="number" class="R input" value="50"></br>
-        Simulate Speed<input type="range" class="SS" value="950" min="500" max="990"></br></br>
-      </div> -->
-      <!-- <div class="table2">
-        Service Rate of Making TypeI（min）<input type="number" name="" class="SR input" value="1.5">
-        <div id="_srr">Purchase Probability - TypeI<input type="number" class="SRR input" id="SRR" max="100" min="0" value="40">%</div>
-        <div class="null"> </div>
-        Service Rate of Making TypeII（min）<input type="number" name="" class="SR2 input" value="0.667">
-        <div id="_sr2r">Purchase Probability - TypeII <input type="number" class="SR2R input" id="SR2R" max="100" min="0" value="60">%</div>
-        <div class="null">after</div>
-        結果
-        <div class="statistics">
-          <div class="stat" style="font-weight:bold; color:#7387fe; font-size:20px">Statistics Result of Simulation - </div>
-          <div class="null">after</div>
-          <div class="buy_I" id="buy_I"></div>
-          <div class="buy_II" id="buy_II"></div>
-          <div id="service_per_m"></div>
-          <div id="avg_service_s"></div>
-          <div id="avg_wait_s"></div>
-        </div>
-      </div> -->
-    </div>
-    <!-- <div class="button" align="center">
-      <input type="button" class="send" value="Simulate">
-      <input type="button" class="stop" value="Stop">
-    </div> -->
+
+    <!-- 結果 -->
     <div class="statistics">
       <div class="stat" style="font-weight:bold; color:#7387fe; font-size:20px">Statistics Result of Simulation - </div>
       <div class="null">after</div>
+      <div id="service_per_m"></div>
       <div class="buy_I" id="buy_I"></div>
       <div class="buy_II" id="buy_II"></div>
-      <div id="service_per_m"></div>
       <div id="avg_service_s"></div>
       <div id="avg_wait_s"></div>
     </div>
 
-    <!-- <div class="null">after</div>
-    <div class="null">after</div>
-    <div class="null">after</div>
-    <div class="null">after</div>
-    <div class="null">after</div>
-    <div class="null">after</div> -->
-
-    <!-- 結果列表 -->
-    <!-- <h2>Results</h2> -->
-    <!-- <div class=".table3_1 " id="output"></div> -->
   </div>
 
   <script src="script.js"></script>

@@ -55,7 +55,6 @@ function run() {
   var const_servicetime2 = 1 / service_rate2 * 60;
   var const_offline_servicetime = 1 / offline_service_rate * 60;
   var const_offline_servicetime2 = 1 / offline_service_rate2 * 60;
-
   var servers_num = document.querySelector('.S').value;
   servers_num = parseInt(servers_num);
   var servers = {
@@ -69,8 +68,10 @@ function run() {
     servers.end_time.push(0);
   }
   var run = document.querySelector('.R').value;
+
   //第一位客人來的時間
   var arrival_time = open_time + (-1 / arrival_rate) * (Math.log(Math.random() / Math.log(2.718)) * 60);
+
   //初始等待人數
   var queue = 0;
 
@@ -90,13 +91,11 @@ function run() {
     ins: [],
     out: [],
     type: [],
-    online: []
   };
 
   // run: 模擬幾次
   for (var i = 1; i <= run; i++) {
     var customer_type;
-    var customer_online;
     if (Math.random() > (typeI_rate / 100)) {
       customer_type = 2;
     } else {
@@ -104,26 +103,13 @@ function run() {
     };
 
     //每次的服務時間
-    if (customer_type == 2 && customer_online == 0) {
-
-      do {
-        var servicetime = parseInt(60 * randomExponential(offline_service_rate2));
-
-      } while (servicetime >= (const_offline_servicetime2 + 20) || servicetime <= (const_offline_servicetime2 - 20));
-    } else if (customer_type == 2 && customer_online == 1) {
+    if (customer_type == 2) {
       do {
         var servicetime = parseInt(60 * randomExponential(service_rate2));
-
       } while (servicetime >= (const_servicetime2 + 20) || servicetime <= (const_servicetime2 - 20));
-    } else if (customer_type == 1 && customer_online == 0) {
-      do {
-        var servicetime = parseInt(60 * randomExponential(offline_service_rate));
-
-      } while (servicetime >= (const_offline_servicetime + 20) || servicetime <= (const_offline_servicetime - 20));
     } else {
       do {
         var servicetime = parseInt(60 * randomExponential(service_rate));
-
       } while (servicetime >= (const_servicetime + 20) || servicetime <= (const_servicetime - 20));
     }
 
@@ -190,8 +176,7 @@ function run() {
       startsec = startsec.toString();
       startsec = "0" + startsec;
     }
-
-    if(customer_type == 0){
+    if (customer_type == 0) {
       var endhour = parseInt(arrival_time / 3600);
       var endmin = parseInt(arrival_time / 60 % 60);
       if (endmin < 10) {
@@ -203,7 +188,7 @@ function run() {
         endsec = endsec.toString();
         endsec = "0" + endsec;
       }
-    }else{
+    } else {
       var endhour = parseInt(servers.end_time[who_service_now] / 3600);
       var endmin = parseInt(servers.end_time[who_service_now] / 60 % 60);
       if (endmin < 10) {
@@ -221,16 +206,15 @@ function run() {
     customer_data.id.push(i);
     customer_data.arrival_time.push(arrival_time);
     customer_data.start_time.push(start_time);
-    if(customer_type == 0){
+    if (customer_type == 0) {
       customer_data.end_time.push(arrival_time);
-    }else{
+    } else {
       customer_data.end_time.push(servers.end_time[who_service_now]);
     }
     customer_data.inq.push(0);
     customer_data.ins.push(0);
     customer_data.out.push(0);
     customer_data.type.push(customer_type)
-    customer_data.online.push(customer_online);
     var in_queue_str = "";
     var max_id = 0;
     for (var j = 0; j < i; j++) {
@@ -245,17 +229,13 @@ function run() {
         }
       }
     }
-    var _online = "Online order";
-    if (customer_online == 0) {
-      _online = " Offline order";
-    }
     queue = customer_data.id[i - 1] - max_id;
-    str += "<tr><td>" + i + "</td><td>"+ "Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + "sec</td><td>" + servers.name[who_service_now] + "</td></tr>";
+    str += "<tr><td>" + i + "</td><td>" + "Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + "sec</td><td>" + servers.name[who_service_now] + "</td></tr>";
   }
   str += "</table>";
   document.getElementById("output").innerHTML = str;
 
-  //動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫動畫
+  //動畫
   // 加入服務生
   // console.log(servers.name.length)
   svg.selectAll("img")
@@ -316,40 +296,50 @@ function run() {
         .attr("width", 50).attr("height", 50)
         .attr("x", 0)
         .attr("y", 50)
-        .attr("test", function() {
-          // console.log("#cus_" + (parseInt(sim_cus) + 1), this)
-        })
+
       var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
       var randPosition = plusOrMinus * Math.random()
-
-
+      // console.log(sim_cus, customer_data.type[sim_cus])
       cust.transition()
         .duration(1000)
+        .ease(d3.easeExpOut)
         .attr("x", 150)
         .attr("y", 150 + randPosition * 100)
         .on("end", serviceSim(sim_cus))
 
       function serviceSim(sim_cus) {
-        if(sim_cus == 0){
+        if (customer_data.type[sim_cus] != 0) {
+          if (sim_cus == 0) {
+            cust.transition()
+              .delay(queue_duration * speed)
+              .duration(service_duration * speed)
+              .ease(d3.easeCircleInOut)
+              .attr("x", (width - 500) / 2 + 500)
+              .attr("y", 150)
+              .on("end", leaveSim)
+          } else {
+            cust.transition()
+              .delay(queue_duration * speed + 1000)
+              .duration(service_duration * speed)
+              .ease(d3.easeCircleInOut)
+              .attr("x", (width - 500) / 2 + 500)
+              .attr("y", 150)
+              .on("end", leaveSim)
+          }
+        } else {
           cust.transition()
-            .delay(queue_duration * speed)
-            .duration(service_duration * speed)
-            .attr("x", (width - 500) / 2 + 500)
-            .attr("y", 150)
-            .on("end", leaveSim)
-        }else{
-          cust.transition()
-            .delay(queue_duration * speed + 1000)
-            .duration(service_duration * speed)
-            .attr("x", (width - 500) / 2 + 500)
-            .attr("y", 150)
-            .on("end", leaveSim)
+            .delay(1000)
+            .duration(1000)
+            .ease(d3.easeExpIn)
+            .attr("x", -50)
+            .attr("y", height)
         }
       }
 
       function leaveSim() {
         cust.transition()
           .duration(1000)
+          .ease(d3.easeExpIn)
           .attr("x", width)
           .attr("y", 150)
       }
@@ -382,8 +372,8 @@ function run() {
       buy_II++;
     }
   });
-  document.getElementById("buy_I").innerHTML = 'Bought drink I ：' + buy_I + '  customers';
-  document.getElementById("buy_II").innerHTML = 'Bought drink II：' + buy_II + ' customers';
+  document.getElementById("buy_I").innerHTML = 'Bought Drink I ：' + buy_I + '  customers';
+  document.getElementById("buy_II").innerHTML = 'Bought Drink II：' + buy_II + ' customers';
   var first_arrival_time = 0
   var last_arrival_time = 0;
   var total_wait_time = 0;
@@ -403,9 +393,9 @@ function run() {
   var service_per_m = all_time / run / 60;
   var avg_service_s = total_service_time / run;
   var avg_wait_s = total_wait_time / run;
-  document.getElementById("service_per_m").innerHTML = service_per_m.toFixed(2) + ' customer come per minute';
-  document.getElementById("avg_service_s").innerHTML = 'Average service time：' + avg_service_s.toFixed(2) + ' seconds'
-  document.getElementById("avg_wait_s").innerHTML = 'Average waiting time：' + avg_wait_s.toFixed(2) + ' seconds'
+  document.getElementById("service_per_m").innerHTML = service_per_m.toFixed(2) + '  customer come per minute';
+  document.getElementById("avg_service_s").innerHTML = 'Average Service Time：' + avg_service_s.toFixed(2) + ' seconds'
+  document.getElementById("avg_wait_s").innerHTML = 'Average Waiting Time：' + avg_wait_s.toFixed(2) + ' seconds'
 }
 
 //指數分布
