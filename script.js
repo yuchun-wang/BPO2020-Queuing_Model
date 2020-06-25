@@ -24,8 +24,8 @@ var s_count = 0;
 var o_count = 0;
 var simulate_id = 0;
 var send = document.querySelector('.send');
-send.addEventListener('click', run, false);
 send.addEventListener('click', clear_count, false);
+send.addEventListener('click', run, false);
 
 function run() {
   var open_time = document.querySelector('.time').value;
@@ -76,7 +76,7 @@ function run() {
 
   //第一位客人的開始時間等於他到達的時間
   var start_time = arrival_time;
-  var str = "<table border='1'> <tr><td>Customer_ID</td><td>Wait</td><td>Serving</td><td>Arrival Time</td><td>Start Time</td><td>End Time</td><td>Service Time（sec）</td><td>Other</td></tr>";
+  var str = "<table border='1' class='table table-striped table-dark' style='margin - bottom: 0'><thead> <tr><th scope='col'>Cust#</th><th>Order Drink Type</th><th>Arrival Time</th><th>Start Time</th><th>End Time</th><th>Service Time</th><th>Served by</th></tr></thead><tbody>";
   var end_time = 0;
   var min_end_time = 1;
   var who_service_now = 0;
@@ -250,7 +250,7 @@ function run() {
       _online = " Offline order";
     }
     queue = customer_data.id[i - 1] - max_id;
-    str += "<tr><td>" + i + "</td><td>" + queue + "</td><td>" + in_queue_str + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + "</td><td>Served by " + servers.name[who_service_now] + "、Ordered drink " + customer_type + "、" + _online + "</td></tr>";
+    str += "<tr><td>" + i + "</td><td>"+ "Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + "sec</td><td>" + servers.name[who_service_now] + "</td></tr>";
   }
   str += "</table>";
   document.getElementById("output").innerHTML = str;
@@ -301,7 +301,6 @@ function run() {
     count++;
     var temp_count = open_time2 + count;
     if (parseInt(customer_data.arrival_time[sim_cus]) < temp_count) {
-      // console.log(sim_cus, "in")
       arrive = customer_data.arrival_time[sim_cus]
       start_service = customer_data.start_time[sim_cus]
       end_service = customer_data.end_time[sim_cus]
@@ -310,9 +309,10 @@ function run() {
       var service_duration = end_service - start_service
 
       // console.log(queue_duration, service_duration)
+      var customer_png = Math.random() < 0.5 ? "human.png" : "woman.png";
       let cust = d3.select("#cus_" + (parseInt(sim_cus) + 1))
         .append("svg:image")
-        .attr("xlink:href", "human.png")
+        .attr("xlink:href", customer_png)
         .attr("width", 50).attr("height", 50)
         .attr("x", 0)
         .attr("y", 50)
@@ -321,7 +321,8 @@ function run() {
         })
       var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
       var randPosition = plusOrMinus * Math.random()
-      // console.log(randPosition)
+
+
       cust.transition()
         .duration(1000)
         .attr("x", 150)
@@ -335,13 +336,22 @@ function run() {
             .duration(service_duration * speed)
             .attr("x", (width - 500) / 2 + 500)
             .attr("y", 150)
+            .on("end", leaveSim)
         }else{
           cust.transition()
             .delay(queue_duration * speed + 1000)
             .duration(service_duration * speed)
             .attr("x", (width - 500) / 2 + 500)
             .attr("y", 150)
+            .on("end", leaveSim)
         }
+      }
+
+      function leaveSim() {
+        cust.transition()
+          .duration(1000)
+          .attr("x", width)
+          .attr("y", 150)
       }
       sim_cus++
     }
@@ -412,4 +422,5 @@ function clear_count() {
   q_count = 0;
   s_count = 0;
   o_count = 0;
+  svg.selectAll("image").remove();
 }
