@@ -19,6 +19,13 @@ svg.append("rect")
   .attr("y", (height + margin.top + margin.bottom - 250) / 2)
   .style("fill", "white");
 
+svg.append("image")
+  .attr("xlink:href", "3081162.svg")
+  .attr("width", 120)
+  .attr("height", 120)
+  .attr("x", width-270)
+  .attr("y", (height + margin.top + margin.bottom - 250) / 2 -70)
+  // .attr("transform", "rotate(45)")
 var q_count = 0;
 var s_count = 0;
 var o_count = 0;
@@ -77,7 +84,7 @@ function run() {
 
   //第一位客人的開始時間等於他到達的時間
   var start_time = arrival_time;
-  var str = "<table border='1' class='table table-striped table-dark' style='margin - bottom: 0'><thead> <tr><th scope='col'>Cust#</th><th>Order Drink Type</th><th>Arrival Time</th><th>Start Time</th><th>End Time</th><th>Service Time</th><th>Served by</th></tr></thead><tbody>";
+  var str = "<table border='1' class='table table-striped table-dark' style='margin - bottom: 0'><thead> <tr><th scope='col'>Cust #</th><th>Order Drink Type</th><th>Arrival Time</th><th>Start Time</th><th>End Time</th><th>Service Time</th><th>Served by</th></tr></thead><tbody>";
   var end_time = 0;
   var min_end_time = 1;
   var who_service_now = 0;
@@ -230,7 +237,11 @@ function run() {
       }
     }
     queue = customer_data.id[i - 1] - max_id;
-    str += "<tr><td>" + i + "</td><td>" + "Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + "sec</td><td>" + servers.name[who_service_now] + "</td></tr>";
+    if (customer_type) {
+      str += "<tr><td>" + i + "</td><td> Drink " + customer_type + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + starthour + ":" + startmin + ":" + startsec + "</td><td>" + endhour + ":" + endmin + ":" + endsec + "</td><td>" + dur + " sec</td><td>" + servers.name[who_service_now] + "</td></tr>";
+    } else {
+      str += "<tr><td>" + i + "</td><td>" + "Leave" + "</td><td>" + arrivalhour + ":" + arrivalmin + ":" + arrivalsec + "</td><td>" + "#######" + "</td><td>" + "#######"+ "</td><td>" + dur + " sec</td><td>" + "NaN"+ "</td></tr>";
+    }
   }
   str += "</table>";
   document.getElementById("output").innerHTML = str;
@@ -242,6 +253,7 @@ function run() {
     .data(servers.name)
     .enter()
     .append("image")
+    .attr("class", "simElement")
     .attr("xlink:href", "waiter.png")
     .attr('x', (d, i) => width / 2 + i * 50 - 50)
     .attr('y', (d) => 20)
@@ -260,6 +272,7 @@ function run() {
   var stop = document.querySelector('.stop');
   stop.addEventListener('click', () => {
     clearInterval(tID)
+    d3.selectAll(".simElement").transition();
   }, false);
   // console.log(customer_data)
   var sim_cus = 0
@@ -277,7 +290,7 @@ function run() {
     var now_time_hour = parseInt(now_time / 3600);
     var now_time_min = parseInt(now_time / 60 % 60);
     var now_time_sec = parseInt(now_time % 60);
-    time_str = 'Current time - ' + now_time_hour + ":" + now_time_min + ':' + now_time_sec;
+    time_str = now_time_hour + ":" + now_time_min + ':' + now_time_sec;
     count++;
     var temp_count = open_time2 + count;
     if (parseInt(customer_data.arrival_time[sim_cus]) < temp_count) {
@@ -292,6 +305,7 @@ function run() {
       var customer_png = Math.random() < 0.5 ? "human.png" : "woman.png";
       let cust = d3.select("#cus_" + (parseInt(sim_cus) + 1))
         .append("svg:image")
+        .attr("class", "simElement")
         .attr("xlink:href", customer_png)
         .attr("width", 50).attr("height", 50)
         .attr("x", 0)
@@ -396,7 +410,7 @@ function run() {
   document.getElementById("service_per_m").innerHTML = service_per_m.toFixed(2) + '  customer come per minute';
   document.getElementById("avg_service_s").innerHTML = 'Average Service Time：' + avg_service_s.toFixed(2) + ' seconds'
   document.getElementById("avg_wait_s").innerHTML = 'Average Waiting Time：' + avg_wait_s.toFixed(2) + ' seconds'
-  document.getElementById("stat").innerHTML = 'Statistics Result of Simulation - ';
+  document.getElementById("stat").innerHTML = 'Results of Simulation';
   document.getElementById("stats").style.opacity = "1";
 }
 
@@ -414,5 +428,5 @@ function clear_count() {
   q_count = 0;
   s_count = 0;
   o_count = 0;
-  svg.selectAll("image").remove();
+  svg.selectAll(".simElement").remove();
 }

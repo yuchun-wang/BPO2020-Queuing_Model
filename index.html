@@ -3,28 +3,40 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Queuing Model</title>
+  <title>Queuing Model Simulation</title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel=stylesheet href="style.css">
+  <link rel=stylesheet href="neonsign.css">
 </head>
 
 <body style="background-color:#121528">
 
   <div class="title" align="center">
-    <h1>Queuing Model</h1>
+    <h1>Queuing Model Simulation</h1>
   </div>
 
   <div class="body">
     <!-- 動畫區 -->
     <div class="simulate_area">
-      <div id="simulate">Current time - 00:00:00</div>
+      Time
+      <div id="simulate">00:00:00</div>
+      <div>
+      </br>
+      <!-- <div id="container"> -->
+        <div class="rebellion">
+          <div class="script">Bubble Tea Store</div>
+        </div>
+      <!-- </div> -->
+      <!-- <p>Bubble Tea Store</p>  -->
+      </div>
       <div class="animation"></div>
     </div>
 
     <!-- 要輸入的東東 -->
     <div class="row">
-      <div class="col">
+      <div class="col"> 
+        <h2>Input Variables</h2></br>
         <div class="row">
           <div class="col">
             Business Hour<input type="time" class="form-control time" name="" id="" placeholder="Business Hour" value="10:30">
@@ -60,7 +72,7 @@
         </div>
         <div class="row">
           <div class="col">
-            Service Rate of Making TypeI（min）<input type="number" name="" class="form-control SR" value="1.5">
+            Service Rate of Making TypeI（min）<input type="number" name="" class="form-control SR" value="2.5">
           </div>
           <div class="col">
             <div id="_srr">Purchase Probability（%）- TypeI<input type="number" class="form-control SRR" id="SRR" max="100" min="0" value="40"></div>
@@ -80,6 +92,7 @@
         </div>
       </div>
       <div class="col">
+        <h2>Simulate Table</h2></br>
         <div class=".table3_1 " id="output"></div>
       </div>
     </div>
