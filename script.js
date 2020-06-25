@@ -365,15 +365,19 @@ function run() {
   //統計
   var buy_I = 0;
   var buy_II = 0;
+  var leave = 0;
   customer_data.type.forEach(element => {
     if (element == 1) {
       buy_I++;
-    } else {
+    } else if(element == 2) {
       buy_II++;
+    }else{
+      leave++;
     }
   });
   document.getElementById("buy_I").innerHTML = 'Bought Drink I ：' + buy_I + '  customers';
   document.getElementById("buy_II").innerHTML = 'Bought Drink II：' + buy_II + ' customers';
+  document.getElementById("leave").innerHTML = 'Left：' + leave + ' customers';
   var first_arrival_time = 0
   var last_arrival_time = 0;
   var total_wait_time = 0;
