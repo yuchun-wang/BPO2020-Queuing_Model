@@ -25,16 +25,6 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-
 body {
   font-family: 'Noto Sans TC';
   line-height: 20px;
@@ -56,48 +46,6 @@ h2 {
 .null {
   opacity: 0;
 }
-
-/* .input {
-  width: 100px;
-  background: #D3DBF6;
-  border-radius: 10px;
-  border-width: 0px;
-  border-color: #D3DBF6;
-} */
-
-/* .time {
-  padding: 5px 12px;
-  margin: 10px 5px;
-  width: 150px;
-  background: #D3DBF6;
-  border-radius: 10px;
-  border-width: 0px;
-  border-color: #D3DBF6;
-} */
-
-.table {
-  overflow: hidden;
-}
-
-/* .table1 {
-  width: 38%;
-  height: 450px;
-  text-align: left;
-  margin: 0px 40px;
-  float: left;
-  font-size: 20px;
-  line-height: 60px;
-}
-
-.table2 {
-  width: 45%;
-  height: 450px;
-  text-align: left;
-  margin: 0px 40px;
-  float: left;
-  font-size: 20px;
-  line-height: 20px;
-} */
 
 .button {
   clear: both;
@@ -148,34 +96,6 @@ input[type=number]:focus {
   border: 3px solid #121528;
 }
 
-/* table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  margin: 15px 0;
-  margin-top: 30px;
-} */
-
-/* th {
-  background-color: #96A5FF;
-  color: #FFFFFF
-} */
-
-/* table, table th, .table td {
-  font-size: 0.95em;
-  text-align: center;
-  padding: 4px;
-  border-collapse: collapse
-}
-
-table tr:nth-child(odd) {
-  background-color: #6F88C4;
-}
-
-.table tr:nth-child(even) {
-  background-color: #fdfdfd;
-} */
-
 .body {
   margin: 0 auto;
   width: auto;
@@ -201,18 +121,17 @@ table tr:nth-child(odd) {
   padding-right: 5%;
   border: 5px solid #7387fe;
   border-radius: 20px;
+  line-height: 30px;
 }
 
- tbody {
-      display:block;
-      max-height:500px;
-      overflow-y:auto;
-  }
-  thead, tbody tr {
-      display:table;
-      width:100%;
-      table-layout:fixed;
-  }
-  /* thead {
-      width: calc( 100% - 1em )
-  }  */
+tbody {
+  display: block;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+thead, tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
